@@ -1,4 +1,6 @@
 from langchain.chat_models import init_chat_model
+from langchain_core.messages import HumanMessage
+from rich import print as rprint
 import os
 from dotenv import load_dotenv
 
@@ -15,13 +17,6 @@ model = init_chat_model(
     base_url=MINIMAX_BASE_URL,
 )
 
-response = model.invoke("翻译如下的汉字：你好世界")
-print(response.content)
-
-print()
-messages = [
-    {"role":"system","content":"你是一个专业的数学老师"},
-    {"role":"user","content":"帮我解释一下什么是斐波那契数列"}
-]
-response = model.invoke(messages)
-print(response.content)
+response = model.invoke([HumanMessage(content="2 + 3 * 2 = ?")])
+print(type(response))
+rprint(response)
