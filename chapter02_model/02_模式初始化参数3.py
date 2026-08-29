@@ -9,10 +9,10 @@ MINIMAX_BASE_URL = os.getenv("MINIMAX_BASE_URL")
 model = init_chat_model(
     model="MiniMax-Text-01",
     model_provider="openai",
-    temperature=0,
+    temperature=1.5,
     api_key=MINIMAX_API_KEY,
     base_url=MINIMAX_BASE_URL,
 )
 # 向模型发送单条数据
-response = model.invoke("张三，男，30岁，拥有8年编程开发经验，目前在某互联网大厂担任技术专家。帮我从上文中提取数据，返回JSON格式")
+response = model.invoke("请为一款极致静音的机械键盘写3个充满诗意且极具张力的广告语。")
 print(response.content)
