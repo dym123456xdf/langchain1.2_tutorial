@@ -1,0 +1,67 @@
+# ==============================
+# 敏感配置 / 知识库原文
+# ==============================
+.env
+knowledge.txt
+
+# ==============================
+# Python 依赖文件（仓库里只保留 requirements_full.txt 作为完整快照，
+# 平时用 requirements.txt 跑——这里把 requirements.txt 也排掉，
+# 避免两份内容漂移后产生无意义 diff）
+# ==============================
+requirements.txt
+
+# ==============================
+# Python 通用忽略
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
+venv/
+env/
+ENV/
+.venv/
+
+# 测试 / 覆盖率
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+htmlcov/
+*.cover
+
+# IDE / 编辑器
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# 日志 / 临时
+*.log
+*.tmp
