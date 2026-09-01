@@ -1,36 +1,24 @@
 # 1.导入相关依赖
-from langchain_text_splitters import HTMLHeaderTextSplitter
+from langchain_text_splitters import Language, RecursiveCharacterTextSplitter
+from pprint import pprint
 
-# 2.定义HTML文件
-html_string = """
-<!DOCTYPE html>
-<html>
-<body>
-    <div>
-        <h1>欢迎来到尚硅谷！</h1>
-        <p>尚硅谷是专门培训IT技术方向</p>
-        <div>
-            <h2>尚硅谷老师简介</h2>
-            <p>尚硅谷老师拥有多年教学经验，都是从一线互联网下来</p>
-            <h3>尚硅谷北京校区</h3>
-            <p>北京校区位于宏福科技园区</p>
-        </div>
-    </div>
-</body>
-</html>
+# 2.定义要分割的python代码片段
+PYTHON_CODE = """
+def hello_world():
+    print("Hello, World!")
+
+def hello_world1():
+    print("Hello, World1!")
 """
 
-# 4.用于指定要根据哪些HTML标签来分割文本
-headers_to_split_on = [
-    ("h1", "标题1"),
-    ("h2", "标题2"),
-    ("h3", "标题3"),
-]
+# 3.定义递归字符切分器
+python_splitter = RecursiveCharacterTextSplitter.from_language(
+    language=Language.PYTHON,
+    chunk_size=50,
+    chunk_overlap=0
+)
 
-# 5.定义HTMLHeaderTextSplitter分割器
-html_splitter = HTMLHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+# 4.文档切分
+python_docs = python_splitter.create_documents(texts=[PYTHON_CODE])
 
-# 6.分割器分割
-html_header_splits = html_splitter.split_text(html_string)
-
-print(html_header_splits)
+pprint(python_docs)

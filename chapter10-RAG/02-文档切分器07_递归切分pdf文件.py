@@ -1,21 +1,27 @@
 # 1.导入相关依赖
+from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# 2.打开.txt文件
-with open("../asset/load/09-ai.txt", encoding="utf-8") as f:
-    state_of_the_union = f.read()  #返回的是字符串
+# 2.定义PyPDFLoader加载器
+loader = PyPDFLoader("../asset/load/04-load.pdf")
 
-# 3.定义RecursiveCharacterTextSplitter（递归字符分割器）
+# 3.加载和切割文档对象
+docs = loader.load()   # 返回Document对象构成的list
+# print(f"第0页：\n{docs[0]}")
+
+# 4.定义切割器
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=100,
-    chunk_overlap=20,
-    #chunk_overlap=0,
-    length_function=len
+    # chunk_size=200,
+    chunk_size=120,
+    chunk_overlap=0,
+    # chunk_overlap=100,
+    length_function=len,
+    add_start_index=True,
 )
 
-# 4.分割文本
-texts = text_splitter.create_documents([state_of_the_union])
+# 5.对pdf内容进行切割得到文档对象
+paragraphs = text_splitter.split_documents(docs)
 
-# 5.打印分割文本
-for text in texts:
-    print(f"🔥{text.page_content}")
+for para in paragraphs:
+    print(para)
+    print('-------')
